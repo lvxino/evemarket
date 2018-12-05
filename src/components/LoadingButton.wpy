@@ -1,0 +1,80 @@
+<template>
+    <button class="loading-button"
+            bindtap="click">
+        <view class="loading"
+              wx:if="{{loading}}">
+            <LoadingIcon pointSize="8"
+                         size="30"></LoadingIcon>
+        </view>
+        <text wx:if="{{!loading}}">{{text}}</text>
+    </button>
+</template>
+<style lang="less" scoped>
+@import "../less/vars.less";
+@height: 50rpx;
+@width: 150rpx;
+.loading-button {
+  display: inline-block;
+  width: @width;
+  height: @height;
+  border-radius: 0;
+  background: @list_bg_color;
+  line-height: @height;
+  color: @hl_color;
+  text-align: center;
+  text-shadow: 0 0 16rpx @hl_color_shadow;
+  font-size: @font-size;
+  transition: background-color 0.3s ease;
+  &:hover {
+    background-color: transparent;
+  }
+}
+</style>
+<script>
+import wepy from 'wepy';
+import LoadingIcon from './LoadingIcon';
+export default class LoadingButton extends wepy.component {
+    props = {
+        text: {
+            type: [String, Number],
+            default: '确定',
+        },
+        click: {
+            type: Function,
+            default: () => { },
+        },
+        loading: {
+            type: Boolean,
+            default: false,
+        },
+        dataSet: {
+            type: [String, Number, Object],
+            default: null,
+        }
+    }
+
+    components = {
+        LoadingIcon
+    }
+
+    methods = {
+        async click() {
+            console.log(this.click)
+            if (typeof this.click === 'function') {
+                this.loading = true;
+                const ret = this.click(this.dataSet);
+                if (ret && typeof ret.then === 'function') {
+                    await ret;
+                    this.loading = false;
+                    this.$apply();
+                    return;
+                }
+                if (ret) {
+                    this.loading = false;
+                    this.$apply();
+                }
+            }
+        }
+    }
+}
+</script>

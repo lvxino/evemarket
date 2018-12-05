@@ -1,0 +1,69 @@
+<template>
+    <view class="type-bar">
+        <view class="type-card clearfix">
+            <image class="icon"
+                   src="{{iconUrl}}"></image>
+            <view class="des">
+                <view class="line">{{params.name}}</view>
+                <view class="line"><text>最低出售价：</text><text class="price price-sail">1,123,123.31</text></view>
+                <view class="line"><text>最高收购价：</text><text class="price price-buy">3,123.12</text></view>
+            </view>
+
+        </view>
+    </view>
+</template>
+<style lang="less" scoped>
+.type-bar {
+  padding: 30rpx;
+  .type-card {
+    padding: 30rpx;
+    font-size: 28rpx;
+    background: rgba(57, 62, 70, 0.3);
+    margin-bottom: 20rpx;
+    .icon {
+      width: 100rpx;
+      height: 100rpx;
+      box-shadow: 0 0 10px #00adb5;
+      float: left;
+      margin-top:10rpx;
+    }
+    .des {
+      margin-left: 130rpx;
+    }
+    .line{
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .price{
+        font-weight: bold;
+        color:#00adb5;
+        &.price-sail{
+
+        }
+        &.price-buy{
+
+        }
+    }
+  }
+}
+</style>
+<script>
+import wepy from 'wepy';
+export default class Index extends wepy.component {
+    props = {
+        params: Object
+    }
+
+    computed = {
+        iconUrl() {
+            if (this.params && this.params.typeId) {
+                return `http://static.awsxin.com/eve/image/types/${this.params.typeId}_64.png`
+            }
+
+            return ''
+        }
+    }
+}
+</script>

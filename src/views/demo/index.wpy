@@ -1,0 +1,11 @@
+<template>
+    <view class="wrapper">
+
+    </view>
+</template>
+<style lang="less">
+@import '../../less/vars.less';
+.wrapper {
+}
+</style>
+<script src="./controler.js"></script>

@@ -1,0 +1,36 @@
+@import './vars.less';
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box;
+}
+
+.wrapper {
+    background: @main_color;
+}
+
+page {
+    background: @main_color;
+    color: @text_color;
+    font-size: @font-size;
+    &:before {
+        content: '';
+        display: block;
+        height: 1rpx;
+        background: @top_line_color;
+        transform: scaleY(0.5);
+        transform-origin: 0 0;
+    }
+}
+
+.clearfix:after{content:".";display:block;height:0;clear:both;visibility:hidden}
+
+::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    color: transparent;
+  }

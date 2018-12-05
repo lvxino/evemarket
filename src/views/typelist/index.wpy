@@ -1,0 +1,41 @@
+<template>
+    <view class="list">
+        <LoadingView wx:if="{{!list}}"></LoadingView>
+        <view class="item"
+              bindtap="click"
+              bindlongpress="longpress"
+              wx:if="{{list}}"
+              wx:key="{{index}}"
+              wx:for="{{list}}"
+              data-group-id="{{item.groupID}}"
+              data-name="{{item.typeName}}"
+              data-type-id="{{item.typeID}}">
+            <image class="icon"
+                   src="http://static.awsxin.com/eve/image/types/{{item.typeID}}_64.png"></image>
+            <text class="text">{{item.typeName}}</text>
+        </view>
+    </view>
+</template>
+<style lang="less">
+@import '../../less/vars.less';
+.list {
+  padding: 30rpx;
+  .item {
+    padding: 40rpx 30rpx;
+    font-size: 28rpx;
+    background: @list_bg_color;
+    margin-bottom: 20rpx;
+    .icon {
+      width: 64rpx;
+      height: 64rpx;
+      vertical-align: middle;
+      box-shadow: 0 0 10px @hl_color;
+    }
+    .text {
+      margin-left: 30rpx;
+      vertical-align: middle;
+    }
+  }
+}
+</style>
+<script src="./controler.js"></script>

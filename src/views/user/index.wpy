@@ -1,0 +1,45 @@
+<template>
+    <view class="home">
+        <!-- <button bindtap="login">登录</button>
+        <button bindgetuserinfo="getUserInfo"
+                lang="zh_CN"
+                open-type="getUserInfo">获取信息</button>
+        <button bindtap="verify">验证</button>
+        <view style="padding:30rpx;">
+            code：{{code}}
+        </view>
+        <view style="padding:30rpx;">
+            userInfoD：{{userInfoD}}
+        </view>
+        <view style="padding:30rpx;">
+            apiResultD ==> {{apiResultD}}
+        </view> -->
+        <view class="desc">
+            上个版本，收藏的物品是保存在本地的，微信本地存储有10M的空间限制，而且换手机后会丢失。以后用微信登陆，收藏会保存到服务器，功能还未完善。
+        </view>
+        <view class="desc">
+            有问题或建议可以发我邮箱：mail.xin.lv@gmail.com
+        </view>
+    </view>
+</template>
+<style lang="less">
+@import "../../less/vars.less";
+.home {
+  button {
+    background: @list_bg_color;
+    color: @text_color;
+  }
+
+  view {
+    word-wrap: break-word;
+  }
+
+  .desc {
+    padding: 30rpx;
+    line-height: 1.5;
+    color: @hl_color;
+    text-shadow: 0 0 16rpx @hl_color_shadow;
+  }
+}
+</style>
+<script src="./controler.js"></script>

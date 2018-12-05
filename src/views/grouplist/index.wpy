@@ -1,0 +1,38 @@
+<template>
+    <view class="list">
+        <LoadingView wx:if="{{!list}}"></LoadingView>
+        <view class="item"
+              bindtap="click"
+              wx:if="{{list}}"
+              wx:key="{{index}}"
+              wx:for="{{list}}"
+              data-hastypes="{{item.hasTypes}}"
+              data-id="{{item.marketGroupID}}">
+            <image class="icon"
+                   src="http://static.awsxin.com/eve/image/icons/items/{{item.iconFile || 'noicon.png'}}"></image>
+            <view class="text">{{item.marketGroupName}}</view>
+        </view>
+    </view>
+</template>
+<style lang="less">
+@import '../../less/vars.less';
+.list {
+  .item {
+    border-bottom: 1px solid @sec_color;
+    padding: 40rpx 30rpx;
+    font-size: 28rpx;
+    .icon {
+      width: 32rpx;
+      height: 32rpx;
+      float: left;
+    }
+    .text {
+      margin-left: 60rpx;
+    }
+    &:first-child {
+      border-top: 1px solid @sec_color;
+    }
+  }
+}
+</style>
+<script src="./controler.js"></script>

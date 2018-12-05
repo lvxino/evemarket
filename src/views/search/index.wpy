@@ -1,0 +1,107 @@
+<template>
+    <view class="wrapper">
+        <view class="search-box">
+            <image class="icon"
+                   bindtap="searchTypes"
+                   src="../../assets/images/search.svg"></image>
+            <input class="input"
+                   bindinput="input"
+                   value="{{search}}"
+                   placeholder="搜索"
+                   bindconfirm="searchTypes"
+                   confirm-type="search" />
+        </view>
+        <view class="list">
+            <view class="empty"
+                  wx:if="{{!loading && !list}}">暂无数据</view>
+            <view class="item"
+                  bindtap="click"
+                  bindlongpress="longpress"
+                  wx:if="{{list}}"
+                  wx:key="{{index}}"
+                  wx:for="{{list}}"
+                  data-group-id="{{item.groupID}}"
+                  data-name="{{item.typeName}}"
+                  data-type-id="{{item.typeID}}">
+                <image class="icon"
+                       src="http://static.awsxin.com/eve/image/types/{{item.typeID}}_64.png"></image>
+                <text class="text">{{item.typeName}}</text>
+            </view>
+            <view class="loading"
+                  wx:if="{{loading}}">
+                <LoadingIcon size="40"
+                             pointSize="12"></LoadingIcon>
+            </view>
+            <!-- <button class="show-more">加载更多</button> -->
+        </view>
+    </view>
+</template>
+<style lang="less">
+@import "../../less/vars.less";
+.wrapper {
+  .search-box {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    z-index: 103;
+    background: @main_color;
+    color: @hl_color;
+    text-shadow: 0 0 16rpx @hl_color_shadow;
+    border-bottom: 1px solid @sec_color;
+    border-top: 1px solid @sec_color;
+    .icon {
+      position: absolute;
+      right: 80rpx;
+      top: 20rpx;
+      width: 50rpx;
+      height: 50rpx;
+    }
+    .input {
+      height: 50rpx;
+      padding: 20rpx 180rpx;
+    }
+  }
+
+  .list {
+    padding: 130rpx 30rpx 30rpx 30rpx;
+    .item {
+      padding: 40rpx 30rpx;
+      font-size: 28rpx;
+      background: @list_bg_color;
+      margin-bottom: 20rpx;
+      .icon {
+        width: 64rpx;
+        height: 64rpx;
+        vertical-align: middle;
+        box-shadow: 0 0 10px @hl_color;
+      }
+      .text {
+        margin-left: 30rpx;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  .empty {
+    color: @hl_color;
+    text-shadow: 0 0 16rpx @hl_color_shadow;
+    text-align: center;
+    padding-top: 200rpx;
+  }
+
+  .show-more {
+    color: @text_color;
+    background: @hl_color;
+    border-radius: 0;
+    font-size: 28rpx;
+    box-shadow: 0 0 30rpx @hl_color_shadow;
+  }
+
+  .loading {
+    position: relative;
+    height: 150rpx;
+  }
+}
+</style>
+<script src="./controler.js"></script>

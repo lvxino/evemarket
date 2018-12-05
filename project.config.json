@@ -1,0 +1,67 @@
+{
+	"description": "EVE",
+	"setting": {
+		"urlCheck": true,
+		"es6": false,
+		"postcss": false,
+		"minified": true,
+		"newFeature": true,
+		"nodeModules": true
+	},
+	"compileType": "miniprogram",
+	"appid": "wxbac9a14197dba70f",
+	"projectname": "EVE%20APP",
+	"miniprogramRoot": "dist/",
+	"condition": {
+		"search": {
+			"current": -1,
+			"list": []
+		},
+		"conversation": {
+			"current": -1,
+			"list": []
+		},
+		"plugin": {
+			"current": -1,
+			"list": []
+		},
+		"game": {
+			"list": []
+		},
+		"miniprogram": {
+			"current": 4,
+			"list": [
+				{
+					"id": 0,
+					"name": "订单详情页",
+					"pathName": "views/orderlist/index",
+					"query": "groupId=548&name=%E8%B7%83%E8%BF%81%E5%B9%B2%E6%89%B0%E6%8E%A2%E9%92%88&typeId=22778"
+				},
+				{
+					"id": 1,
+					"name": "物品详情页",
+					"pathName": "views/typedetail/index",
+					"query": "groupId=548&name=%E8%B7%83%E8%BF%81%E5%B9%B2%E6%89%B0%E6%8E%A2%E9%92%88&typeId=22778"
+				},
+				{
+					"id": -1,
+					"name": "个人中心",
+					"pathName": "views/user/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "搜索",
+					"pathName": "views/search/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "搜索",
+					"pathName": "views/working/index",
+					"query": ""
+				}
+			]
+		}
+	}
+}

@@ -1,0 +1,28 @@
+<template>
+    <view class="wrapper working">
+        <image src="http://static.awsxin.com/gif/working.gif"
+               class="image"></image>
+        <view class="desc">
+            开发中 _(:з」∠)_
+        </view>
+    </view>
+</template>
+<style lang="less">
+@import "../../less/vars.less";
+.image {
+  display: block;
+  width: 640rpx;
+  margin: auto;
+  margin-top: 100rpx;
+  opacity: 0.5;
+  box-shadow: 0 0 10px @hl_color;
+}
+
+.desc {
+  padding: 30rpx;
+  line-height: 1.5;
+  color: @hl_color;
+  text-shadow: 0 0 16rpx @hl_color_shadow;
+  text-align: center;
+}
+</style>

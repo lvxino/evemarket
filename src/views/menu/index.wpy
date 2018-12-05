@@ -1,0 +1,54 @@
+<template>
+    <view class="wrapper home">
+        <view class="menu">
+            <navigator url="/views/grouplist/index?action=showorder"
+                       hover-class="navigator-hover">
+                <image class="icon"
+                       src="../../assets/images/market.svg"></image>
+                <view class="text">市场查询</view>
+            </navigator>
+            <navigator url="/views/search/index"
+                       hover-class="navigator-hover">
+                <image class="icon"
+                       src="../../assets/images/search.svg"></image>
+                <view class="text">搜索</view>
+            </navigator>
+            <navigator url="/views/working/index"
+                       hover-class="navigator-hover">
+                <image class="icon"
+                       src="../../assets/images/zp.svg"></image>
+                <view class="text">装配</view>
+            </navigator>
+            <navigator url="/views/working/index"
+                       hover-class="navigator-hover">
+                <image class="icon"
+                       src="../../assets/images/mission.svg"></image>
+                <view class="text">任务死亡</view>
+            </navigator>
+        </view>
+    </view>
+</template>
+<style lang="less">
+@import '../../less/vars.less';
+.home {
+  .menu {
+    padding: 30rpx;
+    navigator {
+      height: 100rpx;
+      padding: 40rpx 20rpx;
+      font-size: 40rpx;
+      margin-bottom: 20rpx;
+      background: @list_bg_color;
+      .icon {
+        width: 100rpx;
+        height: 100rpx;
+        float: left;
+      }
+      .text {
+        margin-left: 120rpx;
+        line-height: 100rpx;
+      }
+    }
+  }
+}
+</style>

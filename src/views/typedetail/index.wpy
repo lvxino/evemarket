@@ -1,0 +1,80 @@
+<template>
+    <view class="wrapper">
+        <LoadingView wx:if="{{!typeDetail}}"></LoadingView>
+        <view class="type-card clearfix">
+            <image class="icon"
+                   src="{{iconUrl}}"></image>
+            <view class="des">
+                <view class="line">名称：{{typeDetail.typeName}}</view>
+                <view class="desc">描述：{{typeDetail.description}}</view>
+            </view>
+        </view>
+        <view class="panel"
+              wx:for="{{typeDetail.attributeList}}"
+              wx:for-item="category"
+              wx:if="{{category.attributes && category.attributes.length}}">
+            <view class="title">{{category.categoryName}}</view>
+            <view class="attrs">
+                <view class="row"
+                      wx:for="{{category.attributes}}"
+                      wx:for-item="attr"
+                      wx:if="{{attr.attributeNameZh}}">
+                    <text class="label">{{attr.attributeNameZh}}：</text>
+                    <text class="value">{{attr.value}}{{attr.unit ||''}}</text>
+                </view>
+            </view>
+        </view>
+    </view>
+</template>
+<style lang="less">
+@import "../../less/vars.less";
+.wrapper {
+  padding: 30rpx;
+  .type-card {
+    padding: 30rpx;
+    //font-size: 28rpx;
+    background: @list_bg_color;
+    .icon {
+      width: 100rpx;
+      height: 100rpx;
+      box-shadow: 0 0 10px @hl_color;
+      float: left;
+    }
+    .des {
+      margin-left: 130rpx;
+    }
+    .line {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .panel {
+    background: @list_bg_color;
+    margin-top: 30rpx;
+    padding-bottom: 10rpx;
+    .title {
+      font-size: 30rpx;
+      font-weight: bold;
+      padding: 10rpx 20rpx;
+      border-bottom: 1px solid @sec_color;
+    }
+
+    .attrs {
+      .row {
+        padding: 10rpx 20rpx;
+      }
+
+      .label {
+      }
+
+      .value {
+        color: @hl_color;
+        text-shadow: 0 0 16rpx @hl_color_shadow;
+      }
+    }
+  }
+}
+</style>
+<script src="./controler.js"></script>

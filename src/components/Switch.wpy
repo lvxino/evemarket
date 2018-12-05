@@ -1,0 +1,90 @@
+<template>
+    <view class="switch {{value?'open':'close'}}"
+          bindtap="click">
+        <view class="l text">{{colseText}}</view>
+        <view class="r text">{{openText}}</view>
+        <view class="inner">{{innerText}}</view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class Switch extends wepy.component {
+    props = {
+        value: {
+            type: Boolean,
+            default: false,
+            twoWay: true
+        },
+        openText: {
+            type: [String, Number],
+            default: '开',
+        },
+        colseText: {
+            type: [String, Number],
+            default: '关',
+        },
+    }
+
+    computed = {
+        innerText() {
+            return this.value ? this.openText : this.colseText
+        }
+    }
+
+    methods = {
+        click() {
+            this.value = !this.value;
+            this.$emit('change', this.value);
+        }
+    }
+}
+</script>
+
+<style lang="less" scoped>
+@import "../less/vars.less";
+@height: 50rpx;
+@width: 200rpx;
+.switch {
+  position: relative;
+  display: inline-block;
+  height: @height;
+  width: @width;
+  background: @list_bg_color;
+  .l {
+    width: @width / 2;
+    height: 100%;
+    float: left;
+  }
+  .r {
+    margin-left: @width / 2;
+    height: 100%;
+  }
+  .text {
+    line-height: @height;
+    color: @hl_color;
+    text-align: center;
+    text-shadow: 0 0 16rpx @hl_color_shadow;
+  }
+  .inner {
+    position: absolute;
+    height: 100%;
+    line-height: @height;
+    width: @width / 2;
+    background: @hl_color;
+    top: 0;
+    transition: all 0.4s ease;
+    text-align: center;
+    box-shadow: 0 0 30rpx @hl_color_shadow;
+    color: @main_color;
+  }
+
+  &.open .inner {
+    right: 0;
+  }
+
+  &.close .inner {
+    right: @width / 2;
+  }
+}
+</style>

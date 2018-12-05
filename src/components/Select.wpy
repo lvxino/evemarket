@@ -1,0 +1,213 @@
+<template>
+    <view class="select {{cls}}"
+          bindtap="click">
+        <view class="value">{{text}}</view>
+        <view class="line"></view>
+        <view class="full-screen">
+            <view class="bg"></view>
+            <view class="list-wrapper"
+                  catch:tap="listClick"
+                  style="height:{{height}}">
+                <view class="search">
+                    <image class="icon"
+                           src="../assets/images/search.svg"></image>
+                    <input class="input"
+                           bindinput="input"
+                           value="{{search}}"
+                           placeholder="搜索" />
+                </view>
+                <scroll-view scroll-y
+                             class="scroll-list">
+                    <view class="list">
+                        <view class="item"
+                              catch:tap="itemClick"
+                              wx:key="{{index}}"
+                              wx:for="{{displayList}}"
+                              data-value="{{item[valueKey]}}"
+                              data-text="{{item[labelKey]}}">{{item[labelKey]}}</view>
+                    </view>
+                </scroll-view>
+            </view>
+        </view>
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class Select extends wepy.component {
+    props = {
+        value: {
+            type: [String, Number],
+            default: false,
+            twoWay: true
+        },
+        list: {
+            type: Array,
+            default: []
+        },
+        height: {
+            type: [String, Number],
+            default: '50%'
+        },
+        labelKey: {
+            type: String,
+            default: 'label'
+        },
+        valueKey: {
+            type: String,
+            default: 'value'
+        }
+    }
+
+    data = {
+        cls: 'close',
+        text: '',
+        search: ''
+    }
+
+    computed = {
+        text() {
+            const item = this.list.find(item => item[this.valueKey] == this.value);
+            return item && item[this.labelKey] || ''
+        },
+        displayList() {
+            const search = String(this.search);
+            if (search.trim()) {
+                return this.list.filter(item => String(item[this.labelKey]).indexOf(search) > -1)
+            }
+            return this.list;
+        }
+    }
+
+    methods = {
+        click() {
+            this.cls = this.cls === 'close' ? 'expand' : 'close';
+        },
+        listClick(e) {
+
+        },
+        itemClick({ currentTarget: { dataset } }) {
+            this.cls = 'close';
+            this.search = '';
+            this.value = dataset.value || '';
+        },
+        input(e) {
+            this.search = e.detail.value;
+        }
+    }
+}
+</script>
+
+<style lang="less" scoped>
+@import "../less/vars.less";
+@height: 50rpx;
+@width: 200rpx;
+
+.select {
+  position: relative;
+  display: inline-block;
+  height: @height;
+  width: @width;
+  //background: @list_bg_color;
+  line-height: @height;
+  color: @hl_color;
+  text-align: center;
+  text-shadow: 0 0 16rpx @hl_color_shadow;
+  .line {
+    position: absolute;
+    width: 100%;
+    height: 1rpx;
+    left: 0;
+    bottom: 1rpx;
+    background: @hl_color;
+    box-shadow: 0 0 16rpx @hl_color_shadow;
+    transition: transform 0.4s ease;
+  }
+
+  &.expand {
+    .line {
+      transform: scaleX(0);
+    }
+    .full-screen {
+      display: block;
+      animation-name: fadeIn;
+      animation-duration: 0.5s;
+      animation-fill-mode: both;
+      animation-timing-function: ease;
+    }
+  }
+  .value {
+  }
+
+  .full-screen {
+    position: fixed;
+    display: none;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+    z-index: 100;
+    .bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      left: 0;
+      top: 0;
+      z-index: 101;
+      background: @hal_bg_color;
+    }
+  }
+  .list-wrapper {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    bottom: 0;
+    border-top: 1px solid @sec_color;
+    background: @main_color;
+    z-index: 102;
+    .search {
+      position: absolute;
+      width: 100%;
+      left: 0;
+      top: 0;
+      z-index: 103;
+      background: @main_color;
+      .icon {
+        position: absolute;
+        left: 40rpx;
+        top: 20rpx;
+        width: 50rpx;
+        height: 50rpx;
+      }
+      .input {
+        height: @height;
+        border-bottom: 1px solid @sec_color;
+        padding: 20rpx 100rpx;
+      }
+    }
+    .scroll-list {
+      height: 100%;
+      .list {
+        padding-top: @height+40rpx;
+        .item {
+          padding: 20rpx 0;
+          height: @height;
+          line-height: @height;
+          border-bottom: 1px solid @sec_color;
+        }
+      }
+    }
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+</style>
+

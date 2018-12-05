@@ -1,0 +1,56 @@
+<style lang="less">
+@import "./less/base.less";
+</style>
+
+<script>
+import wepy from 'wepy';
+import 'wepy-async-function';
+export default class extends wepy.app {
+    config = {
+        pages: [
+            'views/menu/index',
+            'views/user/index',
+            'views/grouplist/index',
+            'views/working/index',
+            'views/typelist/index',
+            'views/typedetail/index',
+            'views/orderlist/index',
+            'views/search/index'
+        ],
+        window: {
+            backgroundTextStyle: 'dark',
+            navigationBarBackgroundColor: '#222831',
+            navigationBarTitleText: 'EVE',
+            navigationBarTextStyle: 'white',
+            backgroundColor: '#222831'
+        },
+        tabBar: {
+            color: '#eee',
+            selectedColor: '#00ADB5',
+            backgroundColor: '#222831',
+            list: [
+                {
+                    pagePath: 'views/menu/index',
+                    text: '主菜单',
+                    iconPath: './assets/images/menu.png',
+                    selectedIconPath: './assets/images/menu_active.png'
+                },
+                {
+                    pagePath: 'views/user/index',
+                    text: '我的',
+                    iconPath: './assets/images/my.png',
+                    selectedIconPath: './assets/images/my_active.png'
+                }
+            ]
+        }
+    };
+
+    constructor() {
+        super();
+        this.use('requestfix');
+        this.use('promisify');
+    }
+
+    onLaunch() { }
+}
+</script>

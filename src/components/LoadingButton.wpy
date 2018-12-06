@@ -59,7 +59,6 @@ export default class LoadingButton extends wepy.component {
 
     methods = {
         async click() {
-            console.log(this.click)
             if (typeof this.click === 'function') {
                 this.loading = true;
                 const ret = this.click(this.dataSet);

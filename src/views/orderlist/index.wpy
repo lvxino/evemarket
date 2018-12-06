@@ -3,6 +3,9 @@
         <view class="top">
             <view class="type-bar">
                 <view class="type-card clearfix">
+                    <image src="../../assets/images/fav.svg"
+                           class="fav-btn"
+                           bindtap="saveFav"></image>
                     <image class="icon"
                            src="{{iconUrl}}"></image>
                     <view class="des">
@@ -21,9 +24,6 @@
                              openText="欧服"
                              :value.sync="tag"
                              colseText="国服"></Switch2>
-                    <!-- <LoadingButton class="button"
-                               text="收藏"
-                               :click="saveFav"></LoadingButton> -->
                     <Select class="select"
                             labelKey="regionName"
                             valueKey="regionID"
@@ -113,6 +113,12 @@
         white-space: nowrap;
       }
     }
+  }
+
+  .fav-btn {
+    float: right;
+    width: 30rpx;
+    height: 30rpx;
   }
 
   .opt {

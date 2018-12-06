@@ -38,3 +38,32 @@ export const linkTo = (url) => new Promise(resolve => {
         }
     })
 })
+
+
+/**
+ * 检查session_key是否失效
+ */
+export const checkSession = () => new Promise(resolve => {
+    wx.checkSession({
+        success() {
+            resolve(true)
+        },
+        fail() {
+            resolve(false)
+        }
+    })
+})
+
+/**
+ * wx.login
+ */
+export const wxLogin = () => new Promise((resolve, reject) => {
+    wx.login({
+        success({ code }) {
+            resolve(code);
+        },
+        fail() {
+            reject();
+        }
+    })
+})

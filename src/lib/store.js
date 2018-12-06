@@ -64,8 +64,8 @@ class Store {
         return new Promise(resolve => {
             wx.getStorage({
                 key,
-                success(v) {
-                    resolve(v);
+                success({ data }) {
+                    resolve(data);
                 },
                 fail() {
                     resolve(null);

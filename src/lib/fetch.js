@@ -1,7 +1,9 @@
 /**
  * fetch lib
  */
+
 const baseUrl = 'https://eveapi.awsxin.com/v3';
+// const baseUrl = 'http://localhost:3002/v3';
 
 /* global wx */
 const fetch = (url, data, options) => {
@@ -20,13 +22,13 @@ const fetch = (url, data, options) => {
                 if (+res.statusCode === 200) {
                     return resolve(res.data || null);
                 }
-                reject(
-                    new Error(
-                        `Request Status Error 【url:${url}】 【status:${
-                            res.statusCode
-                        }】`
-                    )
+                const error = new Error(
+                    `Request Status Error 【url:${url}】 【status:${
+                    res.statusCode
+                    }】`
                 );
+                error.statusCode = res.statusCode;
+                reject(error);
             },
             fail() {
                 reject(new Error(`Request Error 【url:${url}】`));

@@ -1,0 +1,47 @@
+<template>
+    <view class="list">
+        <LoadingView wx:if="{{!list}}"></LoadingView>
+        <view class="tips">* 长按可删除</view>
+        <view class="item"
+              bindtap="click"
+              bindlongpress="longpress"
+              wx:if="{{list}}"
+              wx:key="{{index}}"
+              wx:for="{{list}}"
+              data-name="{{item.name}}"
+              data-type-id="{{item.typeId}}">
+            <image class="icon"
+                   src="http://static.awsxin.com/eve/image/types/{{item.typeId}}_64.png"></image>
+            <text class="text">{{item.name}}</text>
+        </view>
+    </view>
+</template>
+<style lang="less">
+@import "../../less/vars.less";
+.list {
+  padding: 30rpx;
+  .item {
+    padding: 40rpx 30rpx;
+    font-size: 28rpx;
+    background: @list_bg_color;
+    margin-bottom: 20rpx;
+    .icon {
+      width: 64rpx;
+      height: 64rpx;
+      vertical-align: middle;
+      box-shadow: 0 0 10px @hl_color;
+    }
+    .text {
+      margin-left: 30rpx;
+      vertical-align: middle;
+    }
+  }
+}
+.tips {
+  font-size: 24rpx;
+  color: @hl_color;
+  text-shadow: 0 0 16rpx @hl_color_shadow;
+  padding-bottom: 30rpx;
+}
+</style>
+<script src="./controler.js"></script>

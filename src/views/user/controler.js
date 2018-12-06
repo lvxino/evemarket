@@ -2,6 +2,9 @@
  * 用户中心
  */
 import wepy from 'wepy';
+import { wxLogin } from '../../lib/wx';
+import { login } from '../../service';
+import store from '../../lib/store';
 
 export default class Index extends wepy.page {
     config = {
@@ -11,64 +14,32 @@ export default class Index extends wepy.page {
     components = {};
 
     data = {
-        apiResult: '',
-        code: '',
-        userInfo: {},
+        userInfo: null
     };
 
     computed = {
-        apiResultD() {
-            return JSON.stringify(this.apiResult)
-        },
-        userInfoD() {
-            return JSON.stringify(this.userInfo)
-        }
+
     };
 
     methods = {
-        login() {
-            wx.login({
-                success: (res) => {
-                    this.code = res.code;
-                    this.$apply();
-                },
-                fail: () => {
-                    this.code = '';
-                    this.$apply();
-                }
-            })
-        },
-        getUserInfo({ detail }) {
-            this.userInfo = detail;
-            this.$apply();
-        },
-        verify() {
-            const { encryptedData, iv, rawData, signature, userInfo } = this.userInfo;
-            wx.request({
-                url: 'https://eveapi.awsxin.com/v3/user/testLogin',
-                data: {
-                    code: this.code,
-                    encryptedData,
-                    iv,
-                    rawData,
-                    signature,
-                    userInfo
-                },
-                success: (res) => {
-                    this.apiResult = res;
-                    this.$apply();
-                },
-                fail: () => {
-                    this.apiResult = {};
-                    this.$apply();
-                }
-            })
+        async getUserInfo({ detail: { userInfo } }) {
+            try {
+                const code = await wxLogin();
+                const res = await login({ userInfo, code });
+                // res.userInfo 包含openID 和 服务端加密签名
+                await store.setStorage('userInfo', res.userInfo);
+                wx.showToast({ title: '登录成功' });
+                this.userInfo = res.userInfo;
+                this.$apply();
+            } catch (e) {
+                wx.showToast({ title: '登录失败', icon: 'loading' });
+            }
         }
     };
 
     events = {};
 
-    onLoad() {
-        console.log('load!!!');
+    async onLoad() {
+        this.userInfo = await store.getStorage('userInfo');
     }
 }

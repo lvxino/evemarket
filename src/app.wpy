@@ -15,7 +15,8 @@ export default class extends wepy.app {
             'views/typelist/index',
             'views/typedetail/index',
             'views/orderlist/index',
-            'views/search/index'
+            'views/search/index',
+            'views/marketfav/index'
         ],
         window: {
             backgroundTextStyle: 'dark',
@@ -50,7 +51,5 @@ export default class extends wepy.app {
         this.use('requestfix');
         this.use('promisify');
     }
-
-    onLaunch() { }
 }
 </script>

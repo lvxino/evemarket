@@ -3,7 +3,7 @@
  */
 import wepy from "wepy";
 import numeral from 'numeral';
-import { quertOrderList, getAllRegion } from "service";
+import { quertOrderList, getAllRegion, saveFav } from "service";
 import LoadingIcon from "components/LoadingIcon";
 import Switch from 'components/Switch';
 import LoadingButton from 'components/LoadingButton';
@@ -55,6 +55,23 @@ export default class Index extends wepy.page {
         },
         region() {
             this.quertOrderList();
+        }
+    }
+
+    methods = {
+        async saveFav() {
+            console.log('save');
+            const { name = '', typeId = '', region = '10000002' } = this;
+            const res = await saveFav({
+                typeId,
+                region,
+                name
+            });
+            if (res && res.success) {
+                return wx.showToast({ title: '添加搜藏成功' });
+            }
+
+            wx.showToast({ title: '添加失败,请先登录', icon: 'loading' });
         }
     }
 

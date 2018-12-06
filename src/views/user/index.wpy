@@ -1,44 +1,70 @@
 <template>
-    <view class="home">
-        <!-- <button bindtap="login">登录</button>
-        <button bindgetuserinfo="getUserInfo"
+    <view class="user">
+        <button open-type="getUserInfo"
+                wx:if="{{!userInfo}}"
                 lang="zh_CN"
-                open-type="getUserInfo">获取信息</button>
-        <button bindtap="verify">验证</button>
-        <view style="padding:30rpx;">
-            code：{{code}}
-        </view>
-        <view style="padding:30rpx;">
-            userInfoD：{{userInfoD}}
-        </view>
-        <view style="padding:30rpx;">
-            apiResultD ==> {{apiResultD}}
-        </view> -->
-        <view class="desc">
-            上个版本，收藏的物品是保存在本地的，微信本地存储有10M的空间限制，而且换手机后会丢失。以后用微信登陆，收藏会保存到服务器，功能还未完善。
-        </view>
-        <view class="desc">
-            有问题或建议可以发我邮箱：mail.xin.lv@gmail.com
+                bindgetuserinfo="getUserInfo">登录</button>
+        <view class="user-info"
+              wx:else>
+            <image src="{{userInfo.avatarUrl}}"
+                   class="avatar"></image>
+            <view class="name">{{userInfo.nickName}}</view>
+            <view class="menu">
+                <navigator url="/views/marketfav/index"
+                           hover-class="navigator-hover">
+                    <image class="icon"
+                           src="../../assets/images/fav.svg"></image>
+                    <view class="text">市场搜藏</view>
+                </navigator>
+                <!-- <navigator url="/views/search/index"
+                           hover-class="navigator-hover">
+                    <image class="icon"
+                           src="../../assets/images/search.svg"></image>
+                    <view class="text">我的装配</view>
+                </navigator> -->
+            </view>
         </view>
     </view>
 </template>
 <style lang="less">
 @import "../../less/vars.less";
-.home {
+.user {
+  padding: 30rpx;
+
+  .user-info {
+    text-align: center;
+    color: @hl_color;
+    text-shadow: 0 0 16rpx @hl_color_shadow;
+    .avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+    }
+  }
   button {
     background: @list_bg_color;
     color: @text_color;
   }
-
-  view {
-    word-wrap: break-word;
-  }
-
-  .desc {
-    padding: 30rpx;
-    line-height: 1.5;
-    color: @hl_color;
-    text-shadow: 0 0 16rpx @hl_color_shadow;
+  .menu {
+    padding-top: 50rpx;
+    text-align: left;
+    navigator {
+      height: 40rpx;
+      padding: 20rpx 30rpx 30rpx;
+      font-size: 30rpx;
+      margin-bottom: 20rpx;
+      background: @list_bg_color;
+      .icon {
+        width: 30rpx;
+        height: 30rpx;
+        vertical-align: middle;
+      }
+      .text {
+        margin-left: 20rpx;
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
   }
 }
 </style>

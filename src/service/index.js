@@ -6,3 +6,4 @@ export * from './invtype';
 export * from './universe';
 export * from './server';
 export * from './mission';
+export * from './user';

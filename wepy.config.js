@@ -3,16 +3,9 @@ var prod = process.env.NODE_ENV === 'production';
 
 module.exports = {
     wpyExt: '.wpy',
-    build: {
-        web: {
-            htmlTemplate: path.join('src', 'index.template.html'),
-            htmlOutput: path.join('web', 'index.html'),
-            jsOutput: path.join('web', 'index.js')
-        }
-    },
+    build: {},
     resolve: {
         alias: {
-            counter: path.join(__dirname, 'src/components/counter'),
             '@': path.join(__dirname, 'src'),
             service: path.join(__dirname, 'src/service/index.js'),
             lib: path.join(__dirname, 'src/lib'),
@@ -56,16 +49,16 @@ if (prod) {
             filter: /\.js$/,
             config: {}
         },
-        imagemin: {
-            filter: /\.(jpg|png|jpeg)$/,
-            config: {
-                jpg: {
-                    quality: 80
-                },
-                png: {
-                    quality: 80
-                }
-            }
-        }
+        // imagemin: {
+        //     filter: /\.(jpg|png|jpeg)$/,
+        //     config: {
+        //         jpg: {
+        //             quality: 80
+        //         },
+        //         png: {
+        //             quality: 80
+        //         }
+        //     }
+        // }
     };
 }

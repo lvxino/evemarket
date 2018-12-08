@@ -1,0 +1,19 @@
+<template>
+    <view class="wrapper text-sd">
+        <view>
+            <text>
+
+            </text>
+        </view>
+    </view>
+</template>
+<style lang="less">
+@import "../../less/vars.less";
+.wrapper {
+  padding: 30rpx;
+}
+</style>
+<script>
+import wepy from "wepy";
+export default class Index extends wepy.page { }
+</script>

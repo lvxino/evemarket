@@ -13,27 +13,50 @@
                        src="../../assets/images/search.svg"></image>
                 <view class="text">搜索</view>
             </navigator>
-            <navigator url="/views/working/index"
-                       hover-class="navigator-hover">
+            <view class="navigator disabled"
+                  url="/views/working/index"
+                  hover-class="navigator-hover">
                 <image class="icon"
                        src="../../assets/images/zp.svg"></image>
                 <view class="text">装配</view>
-            </navigator>
-            <navigator url="/views/working/index"
-                       hover-class="navigator-hover">
+            </view>
+            <view class="navigator disabled"
+                  url="/views/working/index"
+                  hover-class="navigator-hover">
                 <image class="icon"
                        src="../../assets/images/mission.svg"></image>
                 <view class="text">任务死亡</view>
-            </navigator>
+            </view>
+            <view class="navigator disabled"
+                  url="/views/working/index"
+                  hover-class="navigator-hover">
+                <image class="icon"
+                       src="../../assets/images/fight.svg"></image>
+                <view class="text">KM</view>
+            </view>
+            <view class="navigator disabled"
+                  url="/views/working/index"
+                  hover-class="navigator-hover">
+                <image class="icon"
+                       src="../../assets/images/navagate.svg"></image>
+                <view class="text">旗舰导航</view>
+            </view>
+            <!-- <navigator url="/views/about/index"
+                       hover-class="navigator-hover">
+                <image class="icon"
+                       src="../../assets/images/about.svg"></image>
+                <view class="text">关于</view>
+            </navigator> -->
         </view>
     </view>
 </template>
 <style lang="less">
-@import '../../less/vars.less';
+@import "../../less/vars.less";
 .home {
   .menu {
     padding: 30rpx;
-    navigator {
+    navigator,
+    .navigator {
       height: 100rpx;
       padding: 40rpx 20rpx;
       font-size: 40rpx;
@@ -47,6 +70,13 @@
       .text {
         margin-left: 120rpx;
         line-height: 100rpx;
+      }
+
+      &.disabled {
+        color: #555;
+        .icon {
+          opacity: 0.3;
+        }
       }
     }
   }

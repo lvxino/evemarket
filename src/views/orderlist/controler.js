@@ -71,7 +71,7 @@ export default class Index extends wepy.page {
                 return wx.showToast({ title: '添加搜藏成功' });
             }
 
-            wx.showToast({ title: '添加失败,请先登录', icon: 'loading' });
+            wx.showToast({ title: '请先登录', icon: 'loading' });
         }
     }
 

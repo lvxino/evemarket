@@ -16,7 +16,8 @@ export default class extends wepy.app {
             'views/typedetail/index',
             'views/orderlist/index',
             'views/search/index',
-            'views/marketfav/index'
+            'views/marketfav/index',
+            'views/about/index'
         ],
         window: {
             backgroundTextStyle: 'dark',

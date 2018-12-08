@@ -3,9 +3,12 @@
         <view class="top">
             <view class="type-bar">
                 <view class="type-card clearfix">
-                    <image src="../../assets/images/fav.svg"
-                           class="fav-btn"
-                           bindtap="saveFav"></image>
+                    <view class="fav-btn text-sd"
+                          bindtap="saveFav">
+                        <image src="../../assets/images/fav.svg"></image>
+                        <text>收藏</text>
+                    </view>
+
                     <image class="icon"
                            src="{{iconUrl}}"></image>
                     <view class="des">
@@ -117,8 +120,16 @@
 
   .fav-btn {
     float: right;
-    width: 30rpx;
-    height: 30rpx;
+    font-size: 24rpx;
+    image {
+      width: 30rpx;
+      height: 30rpx;
+      vertical-align: middle;
+    }
+    text {
+      margin-left: 10rpx;
+      vertical-align: middle;
+    }
   }
 
   .opt {

@@ -1,12 +1,12 @@
 <template>
-    <view class="solar-system-selelct">
-        solar
+    <view class="input">
+        input
     </view>
 </template>
 
 <script>
 import wepy from 'wepy';
-export default class SolarSystemSelect extends wepy.component {
+export default class Input extends wepy.component {
     props = {
         value: {
             type: [String, Number],
@@ -30,7 +30,8 @@ export default class SolarSystemSelect extends wepy.component {
 </script>
 
 <style lang="less" scoped>
-.solar-system-selelct {
+.input {
+
 }
 </style>
 

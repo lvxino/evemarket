@@ -1,6 +1,13 @@
 <template>
     <view class="tab-panel">
-        panel!!!
+        <view class="tab-bar">
+            <view wx:for="{{tabs}}"
+                  wx:key="{{index}}"
+                  class="tab {{(current===item.name)?'avtive':''}}"
+                  data-name="{{item.name}}"
+                  bindtap="tabClick">{{item.label}}</view>
+        </view>
+         <slot name="content"></slot>
     </view>
 </template>
 
@@ -8,33 +15,51 @@
 import wepy from 'wepy';
 export default class TabPanel extends wepy.component {
     props = {
-        value: {
-            type: [String, Number],
-            default: false,
-            twoWay: true
-        },
         tabs: {
             type: Array,
-            default: false,
+            default: [],
+        },
+        current: {
+            type: [String, Number],
+            default: '',
+            twoWay: true
         }
     }
 
     data = {
-
+        actived: this.current
     }
-
-    computed = {
-
-    }
-
     methods = {
-
+        tabClick({ currentTarget: { dataset: { name } } }) {
+            if (name) {
+                this.current = name;
+            }
+        }
     }
 }
 </script>
 
 <style lang="less" scoped>
+@import "../less/vars.less";
+
 .tab-panel {
+  .tab-bar {
+    display: flex;
+    .tab {
+      flex: 1;
+      padding: 20rpx 0;
+      text-align: center;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: @text_color_disable;
+      &.avtive {
+        color: @hl_color;
+        text-shadow: 0 0 16rpx @hl_color_shadow;
+        border-bottom: 1px solid @hl_color;
+      }
+    }
+  }
 }
 </style>
 

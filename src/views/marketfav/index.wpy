@@ -22,36 +22,64 @@
         </view>
     </view>
 </template>
+
+<script>
+import wepy from "wepy";
+import qs from 'query-string';
+import { getFavList, deleteFav } from "service";
+import LoadingView from "components/LoadingView";
+import { linkTo } from 'lib/wx';
+
+export default class Index extends wepy.page {
+    config = {
+        navigationBarTitleText: "EVE"
+    };
+
+    components = {
+        LoadingView
+    };
+
+    data = {
+        list: null
+    };
+
+    computed = {};
+
+    methods = {
+        click({ currentTarget: { dataset } }) {
+            linkTo(`/views/orderlist/index?${qs.stringify(dataset)}`)
+        },
+        longpress({ currentTarget: { dataset } }) {
+            // 删除
+            wx.showModal({
+                title: '提示',
+                content: '是否确认删除？',
+                success: async (res) => {
+                    if (res.confirm) {
+                        const res = await deleteFav(dataset.typeId);
+                        // typeId
+                        if (res && res.success) {
+                            wx.showToast({ title: '删除成功' });
+                            this.getFavList();
+                        }
+                    }
+                }
+            })
+        }
+    };
+
+    async getFavList() {
+        const res = await getFavList();
+        this.list = res.list || [];
+        this.$apply();
+    }
+
+    async onLoad() {
+        this.getFavList();
+    }
+}
+</script>
+
 <style lang="less">
-@import "../../less/vars.less";
-.list {
-  padding: 30rpx;
-  .item {
-    padding: 40rpx 30rpx;
-    font-size: 28rpx;
-    background: @list_bg_color;
-    margin-bottom: 20rpx;
-    .icon {
-      width: 64rpx;
-      height: 64rpx;
-      vertical-align: middle;
-      box-shadow: 0 0 10px @hl_color;
-    }
-    .text {
-      margin-left: 30rpx;
-      vertical-align: middle;
-    }
-  }
-}
-.tips {
-  font-size: 24rpx;
-  color: @hl_color;
-  text-shadow: 0 0 16rpx @hl_color_shadow;
-  padding-bottom: 30rpx;
-}
-.no-item {
-  text-align: center;
-  margin-top: 100rpx;
-}
+@import "./style.less";
 </style>
-<script src="./controler.js"></script>

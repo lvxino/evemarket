@@ -29,7 +29,7 @@
 			"list": []
 		},
 		"miniprogram": {
-			"current": 5,
+			"current": 6,
 			"list": [
 				{
 					"id": 0,
@@ -64,7 +64,13 @@
 				{
 					"id": -1,
 					"name": "关于",
-					"pathName": "views/about/index"
+					"pathName": "views/about/index",
+					"query": ""
+				},
+				{
+					"id": -1,
+					"name": "旗舰导航",
+					"pathName": "views/navagate/index"
 				}
 			]
 		}

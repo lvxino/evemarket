@@ -8,7 +8,8 @@
             <view class="list-wrapper"
                   catch:tap="listClick"
                   style="height:{{height}}">
-                <view class="search">
+                <view class="search"
+                      wx:if="{{needSearch}}">
                     <image class="icon"
                            src="../assets/images/search.svg"></image>
                     <input class="input"
@@ -18,7 +19,7 @@
                 </view>
                 <scroll-view scroll-y
                              class="scroll-list">
-                    <view class="list">
+                    <view class="list {{needSearch?'needSearch':''}}">
                         <view class="item"
                               catch:tap="itemClick"
                               wx:key="{{index}}"
@@ -56,6 +57,14 @@ export default class Select extends wepy.component {
         valueKey: {
             type: String,
             default: 'value'
+        },
+        needSearch: {
+            type: Boolean,
+            default: true
+        },
+        defaultVal: {
+            type: [String, Number],
+            default: '请选择'
         }
     }
 
@@ -68,7 +77,7 @@ export default class Select extends wepy.component {
     computed = {
         text() {
             const item = this.list.find(item => item[this.valueKey] == this.value);
-            return item && item[this.labelKey] || ''
+            return item && item[this.labelKey] || this.defaultVal
         },
         displayList() {
             const search = String(this.search);
@@ -116,12 +125,13 @@ export default class Select extends wepy.component {
   .line {
     position: absolute;
     width: 100%;
-    height: 1rpx;
+    height: 1px;
     left: 0;
-    bottom: 1rpx;
+    bottom: 0;
     background: @hl_color;
     box-shadow: 0 0 16rpx @hl_color_shadow;
     transition: transform 0.4s ease;
+    transform: scaleY(0.5);
   }
 
   &.expand {
@@ -188,7 +198,9 @@ export default class Select extends wepy.component {
     .scroll-list {
       height: 100%;
       .list {
-        padding-top: @height+40rpx;
+        &.needSearch {
+          padding-top: @height+40rpx;
+        }
         .item {
           padding: 20rpx 0;
           height: @height;

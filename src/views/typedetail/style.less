@@ -1,0 +1,49 @@
+@import "../../less/vars.less";
+.wrapper {
+  padding: 30rpx;
+  .type-card {
+    padding: 30rpx;
+    //font-size: 28rpx;
+    background: @list_bg_color;
+    .icon {
+      width: 100rpx;
+      height: 100rpx;
+      box-shadow: 0 0 10px @hl_color;
+      float: left;
+    }
+    .des {
+      margin-left: 130rpx;
+    }
+    .line {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .panel {
+    background: @list_bg_color;
+    margin-top: 30rpx;
+    padding-bottom: 10rpx;
+    .title {
+      font-size: 30rpx;
+      font-weight: bold;
+      padding: 10rpx 20rpx;
+      border-bottom: 1px solid @sec_color;
+    }
+
+    .attrs {
+      .row {
+        padding: 10rpx 20rpx;
+      }
+
+      .label {
+      }
+
+      .value {
+        color: @hl_color;
+        text-shadow: 0 0 16rpx @hl_color_shadow;
+      }
+    }
+  }
+}

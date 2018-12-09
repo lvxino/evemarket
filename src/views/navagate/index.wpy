@@ -1,0 +1,96 @@
+<template>
+    <view class="wrapper">
+        <tabPanel :tabs.sync="tabs"
+                  :current.sync="current">
+            <view slot="content">
+                <view class="panel"
+                      wx:if="{{current==='nav'}}">
+                    <view class="row">
+                        <text class="label text-sd">起始星系：</text>
+                        <SolarSystemSelect :value.sync="solarSystemId" />
+                    </view>
+                    <view class="row">
+                        <text class="label text-sd">舰船类型：</text>
+                        <ShipTypeSelect :list="shipTypeList"
+                                        :needSearch="needSearch"
+                                        :value.sync="shipType" />
+                    </view>
+                    <view class="row">
+                        <text class="label text-sd">技能等级：</text>
+                        <SkillLevelSelect :list="skillLevelList"
+                                          :needSearch="needSearch"
+                                          :value.sync="skillLevel" />
+                    </view>
+                    <view class="row">
+                        <text class="label text-sd">跳跃距离：</text>
+                        <Input :value.sync="distence" />
+                    </view>
+                </view>
+                <view class="panel"
+                      wx:if="{{current==='jump'}}">
+                    土路
+                </view>
+            </view>
+
+        </tabPanel>
+    </view>
+</template>
+
+<script >
+import wepy from "wepy";
+import { } from "service";
+import Select from 'components/Select';
+import tabPanel from "components/TabPanel";
+import SolarSystemSelect from 'components/SolarSystemSelect';
+import Input from 'components/Input';
+
+export default class Index extends wepy.page {
+    config = {
+        navigationBarTitleText: "EVE"
+    };
+
+    components = {
+        tabPanel,
+        SolarSystemSelect,
+        Input,
+        ShipTypeSelect: Select,
+        SkillLevelSelect: Select
+    };
+
+    data = {
+        tabs: [{ name: 'nav', label: '旗舰导航' }, { name: 'jump', label: '土路' }],
+        shipTypeList: [
+            { label: '超旗', value: 1 },
+            { label: '小旗舰', value: 2 },
+            { label: '黑隐特勤舰', value: 3 },
+            { label: '跳货/工业', value: 4 }
+        ],
+        skillLevelList: [
+            { label: '校对1级', value: 1 },
+            { label: '校对2级', value: 2 },
+            { label: '校对3级', value: 3 },
+            { label: '校对4级', value: 4 },
+            { label: '校对5级', value: 5 }
+        ],
+        current: 'nav',
+        needSearch: false,
+        list: null,
+        shipType: 1,
+        skillLevel: 5,
+        solarSystemId: '',
+        distence: ''
+    };
+
+    computed = {};
+
+    methods = {};
+
+    async onLoad(params) { }
+}
+
+</script>
+
+<style lang="less">
+@import "./style.less";
+</style>
+

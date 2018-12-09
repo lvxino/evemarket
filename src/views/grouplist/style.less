@@ -1,0 +1,19 @@
+@import '../../less/vars.less';
+.list {
+  .item {
+    border-bottom: 1px solid @sec_color;
+    padding: 40rpx 30rpx;
+    font-size: 28rpx;
+    .icon {
+      width: 32rpx;
+      height: 32rpx;
+      float: left;
+    }
+    .text {
+      margin-left: 60rpx;
+    }
+    &:first-child {
+      border-top: 1px solid @sec_color;
+    }
+  }
+}

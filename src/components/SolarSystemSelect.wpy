@@ -1,0 +1,36 @@
+<template>
+    <view class="solar-system-selelct">
+        solar
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class SolarSystemSelect extends wepy.component {
+    props = {
+        value: {
+            type: [String, Number],
+            default: false,
+            twoWay: true
+        }
+    }
+
+    data = {
+
+    }
+
+    computed = {
+
+    }
+
+    methods = {
+
+    }
+}
+</script>
+
+<style lang="less" scoped>
+.solar-system-selelct {
+}
+</style>
+

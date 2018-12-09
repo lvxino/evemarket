@@ -8,7 +8,8 @@
             <view class="list-wrapper"
                   catch:tap="listClick"
                   style="height:{{height}}">
-                <view class="search">
+                <view class="search"
+                      wx:if="{{needSearch}}">
                     <image class="icon"
                            src="../assets/images/search.svg"></image>
                     <input class="input"
@@ -56,6 +57,10 @@ export default class Select extends wepy.component {
         valueKey: {
             type: String,
             default: 'value'
+        },
+        needSearch: {
+            type: Boolean,
+            default: true
         }
     }
 

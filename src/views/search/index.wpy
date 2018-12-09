@@ -36,72 +36,59 @@
         </view>
     </view>
 </template>
-<style lang="less">
-@import "../../less/vars.less";
-.wrapper {
-  .search-box {
-    position: fixed;
-    width: 100%;
-    left: 0;
-    top: 0;
-    z-index: 103;
-    background: @main_color;
-    color: @hl_color;
-    text-shadow: 0 0 16rpx @hl_color_shadow;
-    border-bottom: 1px solid @sec_color;
-    border-top: 1px solid @sec_color;
-    .icon {
-      position: absolute;
-      right: 80rpx;
-      top: 20rpx;
-      width: 50rpx;
-      height: 50rpx;
+
+<script >
+import wepy from "wepy";
+import { searchTypes } from "service";
+import qs from 'query-string';
+import { linkTo } from 'lib/wx';
+import LoadingIcon from 'components/LoadingIcon';
+
+export default class Index extends wepy.page {
+    config = {
+        navigationBarTitleText: "EVE"
+    };
+
+    components = {
+        LoadingIcon
+    };
+
+    data = {
+        list: null,
+        limit: 100,
+        offset: 0,
+        search: '',
+        loading: false
+    };
+
+    computed = {};
+
+    methods = {
+        click({ currentTarget: { dataset } }) {
+            linkTo(`/views/orderlist/index?${qs.stringify(dataset)}`)
+        },
+        longpress({ currentTarget: { dataset } }) {
+            linkTo(`/views/typedetail/index?${qs.stringify(dataset)}`)
+        },
+        input({ detail: { value } }) {
+            this.search = value;
+        },
+        async searchTypes() {
+            this.list = null;
+            this.offset = 0;
+            this.loading = true;
+            this.$apply();
+            this.list = await searchTypes(this.search, this.limit, this.offset);
+            this.loading = false;
+            this.$apply();
+        },
+        showMore() {
+
+        }
     }
-    .input {
-      height: 50rpx;
-      padding: 20rpx 180rpx;
-    }
-  }
-
-  .list {
-    padding: 130rpx 30rpx 30rpx 30rpx;
-    .item {
-      padding: 40rpx 30rpx;
-      font-size: 28rpx;
-      background: @list_bg_color;
-      margin-bottom: 20rpx;
-      .icon {
-        width: 64rpx;
-        height: 64rpx;
-        vertical-align: middle;
-        box-shadow: 0 0 10px @hl_color;
-      }
-      .text {
-        margin-left: 30rpx;
-        vertical-align: middle;
-      }
-    }
-  }
-
-  .empty {
-    color: @hl_color;
-    text-shadow: 0 0 16rpx @hl_color_shadow;
-    text-align: center;
-    padding-top: 200rpx;
-  }
-
-  .show-more {
-    color: @text_color;
-    background: @hl_color;
-    border-radius: 0;
-    font-size: 28rpx;
-    box-shadow: 0 0 30rpx @hl_color_shadow;
-  }
-
-  .loading {
-    position: relative;
-    height: 150rpx;
-  }
 }
+</script>
+<style lang="less">
+@import "./style.less";
 </style>
-<script src="./controler.js"></script>
+

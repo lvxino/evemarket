@@ -14,25 +14,52 @@
         </view>
     </view>
 </template>
-<style lang="less">
-@import '../../less/vars.less';
-.list {
-  .item {
-    border-bottom: 1px solid @sec_color;
-    padding: 40rpx 30rpx;
-    font-size: 28rpx;
-    .icon {
-      width: 32rpx;
-      height: 32rpx;
-      float: left;
+
+<script>
+import wepy from "wepy";
+import { getMarketGroupRoot, getMarketGroupChildren } from "service";
+import LoadingView from "components/LoadingView";
+import { linkTo } from 'lib/wx';
+
+export default class Index extends wepy.page {
+    config = {
+        navigationBarTitleText: "EVE"
+    };
+
+    components = {
+        LoadingView
+    };
+
+    data = {
+        list: null
+    };
+
+    computed = {};
+
+    methods = {
+        click({ currentTarget: { dataset } }) {
+            if (+dataset.hastypes === 0) {
+                linkTo(`/views/grouplist/index?parentId=${dataset.id}&action=${this.action}`)
+                return;
+            }
+
+            linkTo(`/views/typelist/index?groupId=${dataset.id}&action=${this.action}`)
+        }
+    };
+
+    async onLoad(params) {
+        this.action = params.action;
+        this.parentId = params.parentId;
+        if (this.parentId) {
+            this.list = await getMarketGroupChildren(this.parentId);
+        } else {
+            this.list = await getMarketGroupRoot();
+        }
+        this.$apply();
     }
-    .text {
-      margin-left: 60rpx;
-    }
-    &:first-child {
-      border-top: 1px solid @sec_color;
-    }
-  }
 }
+</script>
+
+<style lang="less">
+@import "./style.less";
 </style>
-<script src="./controler.js"></script>

@@ -1,13 +1,18 @@
 <template>
     <view class="wrapper">
+        <tabPanel>
 
+        </tabPanel>
     </view>
 </template>
 
-<script>
+<script >
+/**
+ *
+ */
 import wepy from "wepy";
 import { } from "service";
-import LoadingView from "components/LoadingView";
+import tabPanel from "components/TabPanel";
 
 export default class Index extends wepy.page {
     config = {
@@ -15,7 +20,7 @@ export default class Index extends wepy.page {
     };
 
     components = {
-        LoadingView
+        tabPanel
     };
 
     data = {
@@ -28,8 +33,10 @@ export default class Index extends wepy.page {
 
     async onLoad(params) { }
 }
+
 </script>
 
 <style lang="less">
 @import "./style.less";
 </style>
+

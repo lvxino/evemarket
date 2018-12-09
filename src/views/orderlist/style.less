@@ -1,0 +1,101 @@
+@import "../../less/vars.less";
+.wrapper {
+  position: relative;
+  .price {
+    font-weight: bold;
+    color: @hl_color;
+    text-shadow: 0 0 16rpx @hl_color_shadow;
+    &.price-sail {
+    }
+    &.price-buy {
+    }
+  }
+
+  .top {
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    background: @main_color;
+    z-index: 90;
+  }
+
+  .type-bar {
+    padding: 30rpx;
+    padding-bottom: 40rpx;
+    .type-card {
+      padding: 30rpx;
+      //font-size: 28rpx;
+      background: @list_bg_color;
+      margin-bottom: 40rpx;
+      .icon {
+        width: 100rpx;
+        height: 100rpx;
+        box-shadow: 0 0 10px @hl_color;
+        float: left;
+      }
+      .des {
+        margin-left: 130rpx;
+      }
+      .line {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+    }
+  }
+
+  .fav-btn {
+    float: right;
+    font-size: 24rpx;
+    image {
+      width: 30rpx;
+      height: 30rpx;
+      vertical-align: middle;
+    }
+    text {
+      margin-left: 10rpx;
+      vertical-align: middle;
+    }
+  }
+
+  .opt {
+    .switch {
+      margin-right: 30rpx;
+    }
+    .select {
+      float: right;
+    }
+  }
+
+  .list {
+    padding: 300rpx 30rpx 30rpx 30rpx;
+    .list-item {
+      padding: 20rpx 20rpx;
+      background: @list_bg_color;
+      margin-bottom: 20rpx;
+      &:last-child {
+        margin-bottom: 0;
+      }
+      .row {
+        padding: 5rpx 0;
+        .label {
+          font-weight: bold;
+        }
+      }
+    }
+
+    .loading {
+      position: relative;
+      height: 700rpx;
+      width: 100%;
+    }
+
+    .empty {
+      text-align: center;
+      margin-top: 50%;
+      color: @hl_color;
+      text-shadow: 0 0 16rpx @hl_color_shadow;
+    }
+  }
+}

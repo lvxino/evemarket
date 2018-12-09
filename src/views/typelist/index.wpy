@@ -16,26 +16,53 @@
         </view>
     </view>
 </template>
-<style lang="less">
-@import '../../less/vars.less';
-.list {
-  padding: 30rpx;
-  .item {
-    padding: 40rpx 30rpx;
-    font-size: 28rpx;
-    background: @list_bg_color;
-    margin-bottom: 20rpx;
-    .icon {
-      width: 64rpx;
-      height: 64rpx;
-      vertical-align: middle;
-      box-shadow: 0 0 10px @hl_color;
+
+<script src="./controler.js">
+/**
+ * 物品列表
+ */
+import wepy from "wepy";
+import qs from 'query-string';
+import { getMarketTypes } from "service";
+import LoadingView from "components/LoadingView";
+import { linkTo } from 'lib/wx';
+
+export default class Index extends wepy.page {
+    config = {
+        navigationBarTitleText: "EVE"
+    };
+
+    components = {
+        LoadingView
+    };
+
+    data = {
+        groupId: null,
+        action: null,
+        list: null
+    };
+
+    computed = {};
+
+    methods = {
+        click({ currentTarget: { dataset } }) {
+            linkTo(`/views/orderlist/index?${qs.stringify(dataset)}`)
+        },
+        longpress({ currentTarget: { dataset } }) {
+            linkTo(`/views/typedetail/index?${qs.stringify(dataset)}`)
+        }
+    };
+
+    async onLoad(params) {
+        this.groupId = params.groupId;
+        this.action = params.action;
+        const list = await getMarketTypes(this.groupId);
+        this.setData("list", list);
     }
-    .text {
-      margin-left: 30rpx;
-      vertical-align: middle;
-    }
-  }
 }
+</script>
+
+<style lang="less">
+@import "./style.less";
 </style>
-<script src="./controler.js"></script>
+

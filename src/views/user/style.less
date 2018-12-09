@@ -1,0 +1,126 @@
+@import "../../less/vars.less";
+.user {
+  padding: 30rpx;
+  .login-btn {
+    height: 100px;
+    width: 100px;
+    line-height: 100px;
+    border-radius: 50%;
+    color: @text_color;
+    text-shadow: 0 0 16rpx @hl_color_shadow;
+    background: @hl_color_shadow;
+    box-shadow: 0 0 30rpx @hl_color_shadow;
+  }
+  .user-info {
+    text-align: center;
+    color: @hl_color;
+    text-shadow: 0 0 16rpx @hl_color_shadow;
+    .avatar {
+      width: 64px;
+      height: 64px;
+      border-radius: 50%;
+    }
+  }
+
+  .logout {
+    position: absolute;
+    right: 30rpx;
+    font-size: 24rpx;
+    image {
+      width: 28rpx;
+      height: 28rpx;
+      vertical-align: middle;
+    }
+    text {
+      vertical-align: middle;
+    }
+  }
+
+  .menu {
+    padding-top: 50rpx;
+    text-align: left;
+    navigator,
+    .navigator {
+      height: 40rpx;
+      padding: 20rpx 30rpx 30rpx;
+      font-size: 30rpx;
+      margin-bottom: 20rpx;
+      background: @list_bg_color;
+      .icon {
+        width: 30rpx;
+        height: 30rpx;
+        vertical-align: middle;
+      }
+      .text {
+        margin-left: 20rpx;
+        display: inline-block;
+        vertical-align: middle;
+      }
+
+      &.disabled {
+        color: #555;
+        text-shadow: none;
+        .icon {
+          opacity: 0.3;
+        }
+      }
+    }
+  }
+
+  .dot {
+    margin: auto;
+    margin-top: 100px;
+    animation: sploosh 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  .dot2 {
+    animation: sploosh2 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  .dot3 {
+    animation: sploosh3 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+  }
+  .dot,
+  .dot2,
+  .dot3 {
+    height: 100px;
+    width: 100px;
+    font-size: 20px;
+    color: @text_color;
+    line-height: 100px;
+    text-align: center;
+    border-radius: 100%;
+    // position: absolute;
+    z-index: 10;
+    animation-iteration-count: infinite;
+    background: transparent;
+  }
+  @keyframes sploosh {
+    0% {
+      box-shadow: 0 0 0 0px rgba(0, 173, 181, 0.7);
+      background: rgba(0, 173, 181, 0.7);
+    }
+    100% {
+      box-shadow: 0 0 0 30px rgba(0, 173, 181, 0);
+      background: rgba(0, 173, 181, 0);
+    }
+  }
+  @keyframes sploosh2 {
+    0% {
+      box-shadow: 0 0 0 0px rgba(0, 173, 181, 0.7);
+      background: rgba(0, 173, 181, 0.7);
+    }
+    100% {
+      box-shadow: 0 0 0 20px rgba(0, 173, 181, 0);
+      background: rgba(0, 173, 181, 0.3);
+    }
+  }
+  @keyframes sploosh3 {
+    0% {
+      box-shadow: 0 0 0 0px rgba(0, 173, 181, 0.7);
+      background: rgba(0, 173, 181, 0.7);
+    }
+    100% {
+      box-shadow: 0 0 0 10px rgba(0, 173, 181, 0);
+      background: rgba(0, 173, 181, 1);
+    }
+  }
+}

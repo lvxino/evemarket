@@ -1,0 +1,40 @@
+<template>
+    <view class="tab-panel">
+        panel!!!
+    </view>
+</template>
+
+<script>
+import wepy from 'wepy';
+export default class TabPanel extends wepy.component {
+    props = {
+        value: {
+            type: [String, Number],
+            default: false,
+            twoWay: true
+        },
+        tabs: {
+            type: Array,
+            default: false,
+        }
+    }
+
+    data = {
+
+    }
+
+    computed = {
+
+    }
+
+    methods = {
+
+    }
+}
+</script>
+
+<style lang="less" scoped>
+.tab-panel {
+}
+</style>
+

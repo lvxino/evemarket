@@ -1,6 +1,9 @@
 <template>
     <view class="input">
-        input
+        <input class="ori-input text-sd"
+               bindinput="input"
+               value="{{value}}" />
+        <view class="line"></view>
     </view>
 </template>
 
@@ -24,14 +27,40 @@ export default class Input extends wepy.component {
     }
 
     methods = {
-
+        input({ detail: { value } }) {
+            this.$emit('change', value);
+        }
     }
 }
 </script>
 
 <style lang="less" scoped>
-.input {
+@import "../less/vars.less";
+@height: 50rpx;
+@width: 200rpx;
 
+.input {
+  position: relative;
+  display: inline-block;
+  width: @width;
+  height: @height;
+  vertical-align: middle;
+
+  .line {
+    position: absolute;
+    width: 100%;
+    height: 1px;
+    left: 0;
+    bottom: 0;
+    background: @hl_color;
+    box-shadow: 0 0 16rpx @hl_color_shadow;
+    transition: transform 0.4s ease;
+    transform: scaleY(0.5);
+  }
+
+  .ori-input {
+    text-align: center;
+  }
 }
 </style>
 

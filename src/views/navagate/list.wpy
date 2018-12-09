@@ -1,0 +1,63 @@
+<template>
+    <view class="solarsys-list">
+        <LoadingIcon wx:if="{{loading}}"></LoadingIcon>
+        <!-- <view class="item empty"
+                              wx:if="{{!list.length && !loading}}">
+                            <text>暂无数据</text>
+                        </view> -->
+        <view class="item"
+              wx:for="{{displayList}}"
+              wx:key="{{index}}">
+            <text class="name">{{item.solarSystemName}}({{item.regionName}})</text>
+            <text class="distence">距离：{{item.distence || '--'}}光年</text>
+            <view>
+                <text>安全等级：{{item.security}}</text>
+            </view>
+        </view>
+    </view>
+</template>
+<script>
+import wepy from 'wepy';
+import LoadingIcon from 'components/LoadingIcon';
+// security  distence
+
+export default class List extends wepy.component {
+    props = {
+        list: {
+            type: Array,
+            default: []
+        },
+        loading: {
+            type: Boolean,
+            default: false
+        }
+    }
+
+    components = {
+        LoadingIcon
+    }
+
+    computed = {
+        displayList() {
+            return this.list.map(item => {
+                return {
+                    ...item,
+                    security: (+item.security).toFixed(2)
+                }
+            })
+        }
+    }
+}
+</script>
+<style lang="less">
+@import "../../less/vars.less";
+.solarsys-list {
+  .item {
+    .name {
+    }
+    .distence {
+      float: right;
+    }
+  }
+}
+</style>

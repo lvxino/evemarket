@@ -98,7 +98,7 @@ export default class Select extends wepy.component {
         itemClick({ currentTarget: { dataset } }) {
             this.cls = 'close';
             this.search = '';
-            this.value = dataset.value || '';
+            this.value = dataset.value;
         },
         input(e) {
             this.search = e.detail.value;

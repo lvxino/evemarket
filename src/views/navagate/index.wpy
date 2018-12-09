@@ -5,27 +5,33 @@
             <view slot="content">
                 <view class="panel"
                       wx:if="{{current==='nav'}}">
-                    <view class="row">
-                        <text class="label text-sd">起始星系：</text>
-                        <SolarSystemSelect :value.sync="solarSystemId" />
+                    <view>
+                        <view class="row">
+                            <text class="label text-sd">起始星系：</text>
+                            <SolarSystemSelect :value.sync="solarSystemId" />
+                        </view>
+                        <view class="row">
+                            <text class="label text-sd">舰船类型：</text>
+                            <ShipTypeSelect :list="shipTypeList"
+                                            :needSearch="needSearch"
+                                            :value.sync="shipType" />
+                        </view>
+                        <view class="row">
+                            <text class="label text-sd">技能等级：</text>
+                            <SkillLevelSelect :list="skillLevelList"
+                                              :needSearch="needSearch"
+                                              :value.sync="skillLevel" />
+                        </view>
+                        <view class="row">
+                            <text class="label text-sd">跳跃距离：</text>
+                            <Input :value.sync="distence" />
+                        </view>
                     </view>
-                    <view class="row">
-                        <text class="label text-sd">舰船类型：</text>
-                        <ShipTypeSelect :list="shipTypeList"
-                                        :needSearch="needSearch"
-                                        :value.sync="shipType" />
-                    </view>
-                    <view class="row">
-                        <text class="label text-sd">技能等级：</text>
-                        <SkillLevelSelect :list="skillLevelList"
-                                          :needSearch="needSearch"
-                                          :value.sync="skillLevel" />
-                    </view>
-                    <view class="row">
-                        <text class="label text-sd">跳跃距离：</text>
-                        <Input :value.sync="distence" />
-                    </view>
+                    <button bindtap="getNearbySystem">计算</button>
+                    <NavList :list.sync="list"
+                             :loading.sync="loading"></NavList>
                 </view>
+
                 <view class="panel"
                       wx:if="{{current==='jump'}}">
                     土路
@@ -38,11 +44,12 @@
 
 <script >
 import wepy from "wepy";
-import { } from "service";
+import { getNearbySystem, getSolarSystemPath } from "service";
 import Select from 'components/Select';
 import tabPanel from "components/TabPanel";
 import SolarSystemSelect from 'components/SolarSystemSelect';
 import Input from 'components/Input';
+import List from './list';
 
 export default class Index extends wepy.page {
     config = {
@@ -54,38 +61,73 @@ export default class Index extends wepy.page {
         SolarSystemSelect,
         Input,
         ShipTypeSelect: Select,
-        SkillLevelSelect: Select
+        SkillLevelSelect: Select,
+        NavList: List,
+        JumpList: List
     };
 
     data = {
         tabs: [{ name: 'nav', label: '旗舰导航' }, { name: 'jump', label: '土路' }],
         shipTypeList: [
-            { label: '超旗', value: 1 },
-            { label: '小旗舰', value: 2 },
-            { label: '黑隐特勤舰', value: 3 },
-            { label: '跳货/工业', value: 4 }
+            { label: '超旗/泰坦', value: 0 },
+            { label: '小航/后勤航', value: 1 },
+            { label: '黑隐特勤舰', value: 2 },
+            { label: '跳货/大鲸鱼', value: 3 }
         ],
         skillLevelList: [
-            { label: '校对1级', value: 1 },
-            { label: '校对2级', value: 2 },
-            { label: '校对3级', value: 3 },
-            { label: '校对4级', value: 4 },
-            { label: '校对5级', value: 5 }
+            { label: '校对1级', value: 0 },
+            { label: '校对2级', value: 1 },
+            { label: '校对3级', value: 2 },
+            { label: '校对4级', value: 3 },
+            { label: '校对5级', value: 4 }
+        ],
+        distenceMap: [
+            [3.6, 4.2, 4.8, 5.4, 6],
+            [4.2, 4.9, 5.6, 6.3, 7],
+            [4.8, 5.6, 6.4, 7.2, 8],
+            [6, 7, 8, 9, 10]
         ],
         current: 'nav',
         needSearch: false,
-        list: null,
-        shipType: 1,
-        skillLevel: 5,
-        solarSystemId: '',
-        distence: ''
+        list: [],
+        shipType: 0,
+        skillLevel: 4,
+        solarSystemId: 30000142,
+        distence: '',
+        loading: false
     };
+
+    watch = {
+        skillLevel() {
+            this.getDistence();
+        },
+        shipType() {
+            this.getDistence();
+        }
+    }
 
     computed = {};
 
-    methods = {};
+    getDistence() {
+        this.distence = this.distenceMap[this.shipType][this.skillLevel];
+    }
 
-    async onLoad(params) { }
+    methods = {
+        async getNearbySystem() {
+            this.list = [];
+            if (!this.distence || !this.solarSystemId) {
+                return;
+            }
+            this.loading = true;
+            this.list = await getNearbySystem(this.solarSystemId, this.distence);
+            this.loading = false;
+            this.$apply();
+        }
+    }
+
+    async onLoad() {
+        this.getDistence();
+    }
 }
 
 </script>

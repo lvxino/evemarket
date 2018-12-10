@@ -95,7 +95,7 @@ export default class Select extends wepy.component {
             this.value = dataset.value || '';
         },
         input(e) {
-            this.search = e.detail.value;
+            this.search = String(e.detail.value).trim();
             if (!this.search) {
                 return;
             }

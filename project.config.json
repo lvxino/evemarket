@@ -68,9 +68,10 @@
 					"query": ""
 				},
 				{
-					"id": -1,
+					"id": 6,
 					"name": "旗舰导航",
-					"pathName": "views/navagate/index"
+					"pathName": "views/navigate/index",
+					"query": ""
 				}
 			]
 		}

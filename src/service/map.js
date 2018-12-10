@@ -2,7 +2,7 @@ import cache from 'lib/cache';
 import fetch from 'lib/fetch';
 
 export const getSolarSystemPath = async (origin, destination, flag, avoid) => {
-    const res = await fetch('/map/route/solarSystems', { origin, destination, flag, avoid })
+    const res = await fetch('/map/route/solarSystems', { origin, destination, flag })
     return res.list || [];
 }
 

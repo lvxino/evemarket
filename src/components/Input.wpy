@@ -28,6 +28,7 @@ export default class Input extends wepy.component {
 
     methods = {
         input({ detail: { value } }) {
+            this.value = value;
             this.$emit('change', value);
         }
     }

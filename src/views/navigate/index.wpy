@@ -34,12 +34,38 @@
 
                 <view class="panel"
                       wx:if="{{current==='jump'}}">
-                    土路
+                    <view>
+                        <view class="row">
+                            <text class="label text-sd">起始星系：</text>
+                            <StartSolarSystem :value.sync="origin" />
+                        </view>
+                        <view class="row">
+                            <text class="label text-sd">目标星系：</text>
+                            <EndSolarSystem :value.sync="destination" />
+                        </view>
+                        <view class="row">
+                            <text class="label text-sd">路径规则：</text>
+                            <RouteFlag :list="flagList"
+                                       :needSearch="needSearch"
+                                       :value.sync="flag" />
+                        </view>
+                    </view>
+                    <button bindtap="getJumpInfoHandler">计算</button>
+                    <view class="text-sd jump-num">跳跃数：{{jumpNum}}</view>
+                    <JumpList :list.sync="jumpList"
+                              :loading.sync="jumpLoading"></JumpList>
                 </view>
             </view>
-
         </tabPanel>
+
+        <view class="go-top"
+              hidden="{{!showGoTop}}">
+            <image src="../../assets/images/ico-to-top.svg"
+                   bindtap="goToTop"></image>
+        </view>
+
     </view>
+
 </template>
 
 <script >
@@ -62,12 +88,15 @@ export default class Index extends wepy.page {
         Input,
         ShipTypeSelect: Select,
         SkillLevelSelect: Select,
+        RouteFlag: Select,
         NavList: List,
-        JumpList: List
+        JumpList: List,
+        StartSolarSystem: SolarSystemSelect,
+        EndSolarSystem: SolarSystemSelect
     };
 
     data = {
-        tabs: [{ name: 'nav', label: '旗舰导航' }, { name: 'jump', label: '土路' }],
+        tabs: [{ name: 'nav', label: '旗舰导航' }, { name: 'jump', label: '常规导航' }],
         shipTypeList: [
             { label: '超旗/泰坦', value: 0 },
             { label: '小航/后勤航', value: 1 },
@@ -92,9 +121,20 @@ export default class Index extends wepy.page {
         list: [],
         shipType: 0,
         skillLevel: 4,
-        solarSystemId: 30000142,
+        solarSystemId: '',
         distence: '',
-        loading: false
+        loading: false,
+        showGoTop: false,
+        origin: '',
+        destination: '',
+        flagList: [
+            { label: '短程优先', value: 'shortest' },
+            { label: '安全优先', value: 'secure' },
+            { label: '低安全优先', value: 'insecure' },
+        ],
+        flag: 'shortest',
+        jumpList: [],
+        jumpLoading: false
     };
 
     watch = {
@@ -103,13 +143,39 @@ export default class Index extends wepy.page {
         },
         shipType() {
             this.getDistence();
+        },
+        origin() {
+            this.getJumpInfo();
+        },
+        destination() {
+            this.getJumpInfo();
+        },
+        flag() {
+            this.getJumpInfo();
         }
     }
 
-    computed = {};
+    computed = {
+        jumpNum() {
+            const jump = this.jumpList.length - 1;
+            return jump > 0 ? jump : 0;
+        }
+    };
 
     getDistence() {
         this.distence = this.distenceMap[this.shipType][this.skillLevel];
+    }
+
+    async getJumpInfo() {
+        this.jumpList = [];
+        if (!this.origin || !this.destination) {
+            return;
+        }
+        this.jumpLoading = true;
+        this.jumpList = await getSolarSystemPath(this.origin, this.destination, this.flag);
+        this.jumpLoading = false;
+        this.$apply();
+
     }
 
     methods = {
@@ -122,11 +188,29 @@ export default class Index extends wepy.page {
             this.list = await getNearbySystem(this.solarSystemId, this.distence);
             this.loading = false;
             this.$apply();
+        },
+        getJumpInfoHandler() {
+            this.getJumpInfo();
+        },
+        goToTop() {
+            wx.pageScrollTo({ scrollTop: 0, duration: 500 })
         }
     }
 
     async onLoad() {
         this.getDistence();
+    }
+
+    onPageScroll({ scrollTop }) {
+        if (scrollTop > 200) {
+            if (!this.showGoTop) {
+                this.showGoTop = true;
+                this.$apply();
+            }
+        } else if (this.showGoTop) {
+            this.showGoTop = false;
+            this.$apply();
+        }
     }
 }
 

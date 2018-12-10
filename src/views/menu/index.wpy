@@ -14,11 +14,11 @@
                 <view class="text">搜索</view>
             </navigator>
             <navigator class="navigator"
-                       url="/views/navagate/index"
+                       url="/views/navigate/index"
                        hover-class="navigator-hover">
                 <image class="icon"
-                       src="../../assets/images/navagate.svg"></image>
-                <view class="text">旗舰导航</view>
+                       src="../../assets/images/navigate.svg"></image>
+                <view class="text">导航</view>
             </navigator>
             <view class="navigator disabled"
                   url="/views/working/index"

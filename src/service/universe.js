@@ -16,3 +16,9 @@ export const getAllRegion = async () => {
     await cache.set(KEY, res);
     return res;
 }
+
+
+export const searchSolarSystem = async (keyWord) => {
+    const res = await fetch(`/universe/solarSystem/search?keyWord=${keyWord}`);
+    return res.list || [];
+}

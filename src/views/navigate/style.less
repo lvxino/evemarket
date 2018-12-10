@@ -1,0 +1,47 @@
+@import "../../less/vars.less";
+.wrapper {
+    padding: 30rpx;
+    .panel {
+        padding: 30rpx 0;
+        .row {
+            padding: 10rpx 0;
+            .label {
+                vertical-align: middle;
+            }
+        }
+        button {
+            font-size: 28rpx;
+            border-radius: 0;
+            box-shadow: 0 0 30rpx @hl_color_shadow;
+            background: @hl_color;
+            text-align: center;
+            margin-top: 30rpx;
+            color: @text_color;
+        }
+        .solarsys-list {
+            margin-top: 30rpx;
+            .empty {
+                text-align: center;
+            }
+            .item {}
+        }
+        .jump-num {
+            padding-top: 30rpx;
+        }
+    }
+    .go-top {
+        position: fixed;
+        width: 80rpx;
+        height: 80rpx;
+        bottom: 80rpx;
+        right: 50rpx;
+        background: @hl_color;
+        border-radius: 50%;
+        text-align: center;
+        image {
+            width: 80%;
+            height: 80%;
+            margin-top: 10rpx;
+        }
+    }
+}

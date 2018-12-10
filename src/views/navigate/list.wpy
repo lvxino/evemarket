@@ -1,0 +1,83 @@
+<template>
+    <view class="solarsys-list">
+        <LoadingIcon wx:if="{{loading}}"
+                     class="loading"></LoadingIcon>
+        <!-- <view class="item empty"
+                              wx:if="{{!list.length && !loading}}">
+                            <text>暂无数据</text>
+                        </view> -->
+        <view wx:for="{{displayList}}"
+              wx:key="{{index}}"
+              class="item text-sd {{item.cls}}">
+            <text class="name">{{item.solarSystemName}}({{item.regionName}})</text>
+            <text class="distence" wx:if="{{item.distence}}">距离：{{item.distence || '--'}}光年</text>
+            <view>
+                <text>安全等级：{{item.security}}</text>
+            </view>
+        </view>
+    </view>
+</template>
+<script>
+import wepy from 'wepy';
+import LoadingIcon from 'components/LoadingIcon';
+// security  distence
+
+export default class List extends wepy.component {
+    props = {
+        list: {
+            type: Array,
+            default: []
+        },
+        loading: {
+            type: Boolean,
+            default: false
+        }
+    }
+
+    components = {
+        LoadingIcon
+    }
+
+    computed = {
+        displayList() {
+            return this.list.map(item => {
+                return {
+                    ...item,
+                    security: (+item.security).toFixed(2),
+                    cls: +item.security >= 0.5 ? 'h' : (+item.security > 0 ? 'm' : 'l')
+                }
+            })
+        }
+    }
+}
+</script>
+<style lang="less">
+@import "../../less/vars.less";
+.solarsys-list {
+  position: relative;
+  .loading {
+    position: relative;
+    margin-top: 300rpx !important;
+  }
+  .item {
+    padding: 10rpx 30rpx;
+    margin-bottom: 20rpx;
+    background: @list_bg_color;
+    &.h {
+    }
+    &.m {
+      color: #e29c68;
+      text-shadow: 0 0 16rpx rgba(226, 156, 104, 0.4);
+    }
+    &.l {
+      color: #a20e0e;
+      text-shadow: 0 0 16rpx rgba(162, 14, 14, 0.4);
+    }
+    .name {
+    }
+    .distence {
+      float: right;
+    }
+  }
+}
+</style>
